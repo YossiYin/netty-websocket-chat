@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.yen</groupId>
+    <artifactId>netty-websocket-chat</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>netty-websocket-chat</name>
+    <description>netty-websocket-chat</description>
+    <modules>
+        <module>simple-netty-chat</module>
+        <module>demo</module>
+    </modules>
+    <properties>
+        <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-boot.version>3.0.2</spring-boot.version>
+    </properties>
+    <dependencies>
+
+
+
+
+    </dependencies>
+    <dependencyManagement>
+
+    </dependencyManagement>
+
+    <build>
+
+    </build>
+
+</project>
