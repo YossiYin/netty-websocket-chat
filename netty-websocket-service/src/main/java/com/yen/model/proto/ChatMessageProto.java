@@ -121,7 +121,7 @@ public final class ChatMessageProto {
   }
   /**
    * <pre>
-   * 数据交流对象
+   * 数据交流对象(内部类)
    * </pre>
    *
    * Protobuf type {@code ChatMessage}
@@ -151,15 +151,15 @@ public final class ChatMessageProto {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return ChatMessageProto.internal_static_ChatMessage_descriptor;
+      return com.yen.model.proto.ChatMessageProto.internal_static_ChatMessage_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return ChatMessageProto.internal_static_ChatMessage_fieldAccessorTable
+      return com.yen.model.proto.ChatMessageProto.internal_static_ChatMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ChatMessageProto.ChatMessage.class, ChatMessageProto.ChatMessage.Builder.class);
+              com.yen.model.proto.ChatMessageProto.ChatMessage.class, com.yen.model.proto.ChatMessageProto.ChatMessage.Builder.class);
     }
 
     public static final int FROMUSERID_FIELD_NUMBER = 1;
@@ -411,10 +411,10 @@ public final class ChatMessageProto {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof ChatMessageProto.ChatMessage)) {
+      if (!(obj instanceof com.yen.model.proto.ChatMessageProto.ChatMessage)) {
         return super.equals(obj);
       }
-      ChatMessageProto.ChatMessage other = (ChatMessageProto.ChatMessage) obj;
+      com.yen.model.proto.ChatMessageProto.ChatMessage other = (com.yen.model.proto.ChatMessageProto.ChatMessage) obj;
 
       if (getFromUserId()
           != other.getFromUserId()) return false;
@@ -463,44 +463,44 @@ public final class ChatMessageProto {
       return hash;
     }
 
-    public static ChatMessageProto.ChatMessage parseFrom(
+    public static com.yen.model.proto.ChatMessageProto.ChatMessage parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ChatMessageProto.ChatMessage parseFrom(
+    public static com.yen.model.proto.ChatMessageProto.ChatMessage parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ChatMessageProto.ChatMessage parseFrom(
+    public static com.yen.model.proto.ChatMessageProto.ChatMessage parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ChatMessageProto.ChatMessage parseFrom(
+    public static com.yen.model.proto.ChatMessageProto.ChatMessage parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ChatMessageProto.ChatMessage parseFrom(byte[] data)
+    public static com.yen.model.proto.ChatMessageProto.ChatMessage parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ChatMessageProto.ChatMessage parseFrom(
+    public static com.yen.model.proto.ChatMessageProto.ChatMessage parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ChatMessageProto.ChatMessage parseFrom(java.io.InputStream input)
+    public static com.yen.model.proto.ChatMessageProto.ChatMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static ChatMessageProto.ChatMessage parseFrom(
+    public static com.yen.model.proto.ChatMessageProto.ChatMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -508,26 +508,26 @@ public final class ChatMessageProto {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static ChatMessageProto.ChatMessage parseDelimitedFrom(java.io.InputStream input)
+    public static com.yen.model.proto.ChatMessageProto.ChatMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static ChatMessageProto.ChatMessage parseDelimitedFrom(
+    public static com.yen.model.proto.ChatMessageProto.ChatMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static ChatMessageProto.ChatMessage parseFrom(
+    public static com.yen.model.proto.ChatMessageProto.ChatMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static ChatMessageProto.ChatMessage parseFrom(
+    public static com.yen.model.proto.ChatMessageProto.ChatMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -540,7 +540,7 @@ public final class ChatMessageProto {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(ChatMessageProto.ChatMessage prototype) {
+    public static Builder newBuilder(com.yen.model.proto.ChatMessageProto.ChatMessage prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -557,7 +557,7 @@ public final class ChatMessageProto {
     }
     /**
      * <pre>
-     * 数据交流对象
+     * 数据交流对象(内部类)
      * </pre>
      *
      * Protobuf type {@code ChatMessage}
@@ -565,18 +565,18 @@ public final class ChatMessageProto {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:ChatMessage)
-        ChatMessageProto.ChatMessageOrBuilder {
+        com.yen.model.proto.ChatMessageProto.ChatMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return ChatMessageProto.internal_static_ChatMessage_descriptor;
+        return com.yen.model.proto.ChatMessageProto.internal_static_ChatMessage_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return ChatMessageProto.internal_static_ChatMessage_fieldAccessorTable
+        return com.yen.model.proto.ChatMessageProto.internal_static_ChatMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                ChatMessageProto.ChatMessage.class, ChatMessageProto.ChatMessage.Builder.class);
+                com.yen.model.proto.ChatMessageProto.ChatMessage.class, com.yen.model.proto.ChatMessageProto.ChatMessage.Builder.class);
       }
 
       // Construct using com.yen.model.proto.ChatMessageProto.ChatMessage.newBuilder()
@@ -606,17 +606,17 @@ public final class ChatMessageProto {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return ChatMessageProto.internal_static_ChatMessage_descriptor;
+        return com.yen.model.proto.ChatMessageProto.internal_static_ChatMessage_descriptor;
       }
 
       @java.lang.Override
-      public ChatMessageProto.ChatMessage getDefaultInstanceForType() {
-        return ChatMessageProto.ChatMessage.getDefaultInstance();
+      public com.yen.model.proto.ChatMessageProto.ChatMessage getDefaultInstanceForType() {
+        return com.yen.model.proto.ChatMessageProto.ChatMessage.getDefaultInstance();
       }
 
       @java.lang.Override
-      public ChatMessageProto.ChatMessage build() {
-        ChatMessageProto.ChatMessage result = buildPartial();
+      public com.yen.model.proto.ChatMessageProto.ChatMessage build() {
+        com.yen.model.proto.ChatMessageProto.ChatMessage result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -624,14 +624,14 @@ public final class ChatMessageProto {
       }
 
       @java.lang.Override
-      public ChatMessageProto.ChatMessage buildPartial() {
-        ChatMessageProto.ChatMessage result = new ChatMessageProto.ChatMessage(this);
+      public com.yen.model.proto.ChatMessageProto.ChatMessage buildPartial() {
+        com.yen.model.proto.ChatMessageProto.ChatMessage result = new com.yen.model.proto.ChatMessageProto.ChatMessage(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(ChatMessageProto.ChatMessage result) {
+      private void buildPartial0(com.yen.model.proto.ChatMessageProto.ChatMessage result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.fromUserId_ = fromUserId_;
@@ -658,16 +658,16 @@ public final class ChatMessageProto {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof ChatMessageProto.ChatMessage) {
-          return mergeFrom((ChatMessageProto.ChatMessage)other);
+        if (other instanceof com.yen.model.proto.ChatMessageProto.ChatMessage) {
+          return mergeFrom((com.yen.model.proto.ChatMessageProto.ChatMessage)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(ChatMessageProto.ChatMessage other) {
-        if (other == ChatMessageProto.ChatMessage.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.yen.model.proto.ChatMessageProto.ChatMessage other) {
+        if (other == com.yen.model.proto.ChatMessageProto.ChatMessage.getDefaultInstance()) return this;
         if (other.getFromUserId() != 0L) {
           setFromUserId(other.getFromUserId());
         }
@@ -1179,12 +1179,12 @@ public final class ChatMessageProto {
     }
 
     // @@protoc_insertion_point(class_scope:ChatMessage)
-    private static final ChatMessageProto.ChatMessage DEFAULT_INSTANCE;
+    private static final com.yen.model.proto.ChatMessageProto.ChatMessage DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new ChatMessageProto.ChatMessage();
+      DEFAULT_INSTANCE = new com.yen.model.proto.ChatMessageProto.ChatMessage();
     }
 
-    public static ChatMessageProto.ChatMessage getDefaultInstance() {
+    public static com.yen.model.proto.ChatMessageProto.ChatMessage getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1220,7 +1220,7 @@ public final class ChatMessageProto {
     }
 
     @java.lang.Override
-    public ChatMessageProto.ChatMessage getDefaultInstanceForType() {
+    public com.yen.model.proto.ChatMessageProto.ChatMessage getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 

@@ -4,10 +4,10 @@ import com.yen.model.proto.ChatMessageProto;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import io.netty.channel.group.ChannelGroup;
+import io.netty.channel.group.DefaultChannelGroup;
+import io.netty.util.concurrent.GlobalEventExecutor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.time.LocalDateTime;
 
 /**
  * ws协议文本帧处理器
@@ -17,21 +17,24 @@ import java.time.LocalDateTime;
  */
 @Slf4j
 @ChannelHandler.Sharable
-public class WebSocketFrameHandler extends SimpleChannelInboundHandler<ChatMessageProto.ChatMessage> {
+public class NettyServerHandler extends SimpleChannelInboundHandler<ChatMessageProto.ChatMessage> {
 
     /**
-     * 服务端收到消息后触发
+     * 负责客户端Channel管理(线程安全)
+     */
+    public static ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+
+    /**
+     * 接收处理客户端发送数据
      *
      * @param ctx ctx
      * @param msg 消息
-     * @throws Exception 例外
      */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ChatMessageProto.ChatMessage msg) {
-        log.info("服务端收到消息[{}]",msg.getContent());
-        // 可回复消息
-        ChatMessageProto.ChatMessage resMsg = ChatMessageProto.ChatMessage.newBuilder().setContent("服务端已收到").build();
-        ctx.channel().writeAndFlush(resMsg);
+        log.info("服务端收到消息[{}]",msg.toString());
+        // 异步线程处理业务逻辑
+
     }
 
     /**
@@ -70,6 +73,6 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<ChatMessa
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         log.info("{}通道发送异常,正在关闭...",ctx.channel().id().asLongText());
         // 发送异常关闭连接
-        // ctx.close();
+        ctx.close();
     }
 }
