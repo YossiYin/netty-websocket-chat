@@ -1,5 +1,6 @@
 package com.yen.server.handler;
 
+import com.yen.model.User;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
@@ -8,10 +9,13 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
+import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.CharsetUtil;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -33,11 +37,20 @@ import java.util.concurrent.TimeUnit;
 public class ServerHandler extends SimpleChannelInboundHandler<String> {
 
     /**
+     * Channel和用户之间的关系绑定
+     * 通过管理一个线程安全的用户标识(如用户主键)和对应channel的map链表
+     */
+    public static Map<String, Channel> userMapChannel= new ConcurrentHashMap<>();
+    // public static Map<User, Channel> userMapChannel2= new ConcurrentHashMap<>();  // 可以存放其他类型为key值
+
+    /**
      * 所有客户端共享的线程组,管理所以的channel
      * 多个线程共享
      * GlobalEventExecutor.INSTANCE是一个全局事件执行器
      * 特点:
      * 1.会自动清除断开连接的channel
+     * 缺点：
+     * 1.不利于实现私聊功能，不容易对用户进行区分
      *
      * 其他人的案例是使用自己定义一个集合列表，自己存入进去，但可能会有线程安全问题
      */
@@ -53,12 +66,15 @@ public class ServerHandler extends SimpleChannelInboundHandler<String> {
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         log.info("有用户已加入连接handlerAdded:[{}]",ctx.channel().remoteAddress());
-        // 将当前channel加入到集合管理
+        // 将当前channel加入到group集合管理
         Channel channel = ctx.channel();
         // [1.上线提醒功能]:将该用户加入聊天的信息推送给其他在线的用户
         // 使用自带的方法实现全部推送,原理是循环所有他管理的通道
         channelGroup.writeAndFlush("[客户端]" + channel.remoteAddress() + "加入聊天");
         channelGroup.add(channel);
+
+        // [用户绑定通道]将当前用户绑定对应的channel,(此处暂未实现)
+        userMapChannel.put("id100",channel);
     }
 
     /**
@@ -140,7 +156,36 @@ public class ServerHandler extends SimpleChannelInboundHandler<String> {
         ctx.writeAndFlush(Unpooled.copiedBuffer("我是服务端，我成功收到了你的消息",CharsetUtil.UTF_8));
     }
 
-
+    /**
+     * 特殊：用户事件触发器
+     * 此次用于心跳检测后触发该方法，然后进行处理.(需要在channel添加IdleStateHandler处理器)
+     * 如果嫌该类方法太多，可以新建一个Handle专门放该方法
+     *
+     * @param ctx 上下文
+     * @param evt 事件
+     * @throws Exception 例外
+     */
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        Channel channel = ctx.channel();
+        // [连接空闲处理]此处可以配置发送心跳包或者设置重连机制（HeartBeatHandler）客户端与服务端同理
+        if (evt instanceof IdleStateEvent){
+            log.info("触发超时心跳事件");
+            IdleStateEvent event = (IdleStateEvent)evt;
+            switch (event.state()){
+                case READER_IDLE:
+                    log.info("服务端长时间未收到数据,发生读空闲");
+                    break;
+                case WRITER_IDLE:
+                    log.info("服务端长时间未发送数据,发生写空闲");
+                    break;
+                case ALL_IDLE:
+                    log.info("服务端长时间未收到、未发送数据,发生读写空闲");
+                    break;
+            }
+        }
+        super.userEventTriggered(ctx, evt);
+    }
 
     /**
      * 特殊:处理channel中发生的异常

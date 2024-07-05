@@ -1,8 +1,11 @@
 package com.yen.client.init;
 
 import com.yen.client.handler.ClientHandler;
+import com.yen.model.proto.ChatMessageProto;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
+import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 
@@ -15,11 +18,11 @@ public class ClientInitializer extends ChannelInitializer<Channel> {
     private final ClientHandler clientHandler = new ClientHandler();
 
     @Override
-    protected void initChannel(Channel ch) throws Exception {
+    protected void initChannel(Channel ch){
         // 对管道进行初始化
         ch.pipeline()
-                .addLast("decoder",new StringDecoder()) // 加入解码器
-                .addLast("encoder",new StringEncoder()) // 加入编码器
+                .addLast("decoder",new ProtobufDecoder(ChatMessageProto.ChatMessage.getDefaultInstance())) // 加入解码器并指定数据类型
+                .addLast("encoder",new ProtobufEncoder()) // 加入编码器
                 .addLast(clientHandler); // 最后再添加自己的Handler
     }
 }

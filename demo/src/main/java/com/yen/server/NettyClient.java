@@ -1,6 +1,6 @@
-package com.yen.netty;
+package com.yen.server;
 
-import com.yen.netty.init.MyNettyClientInitializer;
+import com.yen.server.init.MyNettyClientInitializer;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.nio.NioEventLoopGroup;

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket测试用客户端</title>
+</head>
+<script>
+    var socket;
+    // 判断当前浏览器是否支持websocket
+    if (window.WebSocket){
+        socket = new WebSocket("ws://127.0.0.1:7000/api/chat")
+        // 设置收到服务器端回送消息内容时触发的事件
+        socket.onmessage = function (ev) {
+            var rtElement = document.getElementById("responseText");
+            rtElement.value = rtElement.value + "\n" + ev.data;
+            var text = rtElement.value;
+        }
+
+        // 设置连接开启时触发的事件
+        socket.onopen = function (ev) {
+            var rtElement = document.getElementById("responseText");
+            rtElement.value = "连接开启了..";
+        }
+
+        // 设置连接关闭时触发的事件
+        socket.onclose = function (ev) {
+            var rtElement = document.getElementById("responseText");
+            rtElement.value = rtElement.value + "\n" + "连接关闭了";
+        }
+    }else {
+        alert("当前浏览器不支持websocket")
+    }
+    
+    // 设置发送消息函数
+    // 此处的message应该与服务端定义的协议一致
+    function send(message) {
+        if (!window.socket){
+            return;
+        }
+        if (socket.readyState == WebSocket.OPEN){
+            // 发送消息
+            socket.send(message);
+        }else {
+            alert("ws连接未开启")
+        }
+    }
+
+
+</script>
+<body>
+    <form onsubmit="return false">
+        <textarea name="message" style="height: 300px;  width: 300px"></textarea>
+        <input type="button" value="发送消息" onclick="send(this.form.message.value)">
+        <textarea id="responseText" style="height: 300px;width: 300px"></textarea>
+        <input type="button" value="清空内容" onclick="document.getElementById('responseText').value=''">
+    </form>
+</body>
+</html>

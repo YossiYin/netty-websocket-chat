@@ -1,9 +1,8 @@
-package com.yen.netty.init;
+package com.yen.server.init;
 
-import com.yen.netty.handler.MyNettyServerHandler;
+import com.yen.server.handler.MyNettyServerHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
-import io.netty.channel.socket.SocketChannel;
 
 
 public class MyNettyServerInitializer extends ChannelInitializer<Channel> {

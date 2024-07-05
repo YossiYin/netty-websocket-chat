@@ -1,5 +1,6 @@
 package com.yen.client.handler;
 
+import com.yen.model.proto.ChatMessageProto;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,13 @@ public class ClientHandler extends SimpleChannelInboundHandler<String>{
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         // 客户端和服务端建立连接时调用
         log.info("客户端成功连接");
+        // 发送Protobuf协议定义的对象
+        ChatMessageProto.ChatMessage msg = ChatMessageProto.ChatMessage.newBuilder()
+                .setFromUserId(1)
+                .setToUserId(2)
+                .setContent("消息内容")
+                .setType(0).build();
+        ctx.writeAndFlush(msg);
     }
 
     /**

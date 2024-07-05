@@ -1,9 +1,8 @@
-package com.yen.netty.init;
+package com.yen.server.init;
 
-import com.yen.netty.handler.MyNettyClientHandler;
+import com.yen.server.handler.MyNettyClientHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
-import io.netty.channel.socket.SocketChannel;
 
 /**
  * 对客户端管道进行初始化
