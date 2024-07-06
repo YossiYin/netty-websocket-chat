@@ -12,7 +12,7 @@ message ChatMessage {
   int64 toUserId = 2;        // 接收者ID
   string content = 3;         // 消息内容
   string sendTime = 4;        // 发送时间,格式(yyyy-MM-dd HH:mm:ss)
-  int32 type = 5;             // 消息类型(0建立连接|1文本消息|2图片消息|3文件消息|4语音消息|5视频消息|6广告消息)
+  int32 type = 5;             // 消息类型(0建立连接|1文本消息|2图片消息|3文件消息|4语音消息|5视频消息|6广告消息|7系统消息)
   int32 status = 6;           // 状态(0已发送|1已读|2发送失败|3已撤回)
   int64 id = 7;               // 消息唯一标识符(数据库自增生成)
 }

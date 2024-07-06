@@ -1,14 +1,18 @@
 package com.yen.server.handler;
+
 import com.google.protobuf.ByteString;
 import com.google.protobuf.GeneratedMessage;
 import com.yen.model.proto.ChatMessageProto.ChatMessage;
 import com.google.protobuf.UnknownFieldSet;
 import com.google.protobuf.Descriptors.Descriptor;
+
 import java.util.Map;
+
 import com.google.protobuf.Descriptors.FieldDescriptor;
 import com.google.protobuf.Parser;
 
 import com.yen.model.proto.ChatMessageProto;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -40,18 +44,27 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<ChatMessageP
      */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ChatMessageProto.ChatMessage msg) {
-     long fromUserId = msg.getFromUserId();
-     long toUserId = msg.getToUserId();
-     String content = msg.getContent();
-     String sendTime = msg.getSendTime();
-     int type = msg.getType();
-     int status = msg.getStatus();
-     long id = msg.getId();
+        Channel channel = ctx.channel();
+
+        long fromUserId = msg.getFromUserId();
+        long toUserId = msg.getToUserId();
+        String content = msg.getContent();
+        String sendTime = msg.getSendTime();
+        int type = msg.getType();
+        int status = msg.getStatus();
+        long id = msg.getId();
         log.info("服务端收到消息: [\nfromUserId={},\n toUserId={},\n content='{}',\n sendTime={},\n type={},\n status={},\n id={}\n]",
                 fromUserId, toUserId, content, sendTime, type, status, id);
 
-
         // 异步线程处理业务逻辑
+        // 回复客户端收到消息
+        ChatMessage res = ChatMessage.newBuilder()
+                .setFromUserId(fromUserId)
+                .setToUserId(fromUserId)
+                .setContent("发送成功")
+                .setType(7)
+                .setStatus(0).build();
+        channel.writeAndFlush(res);
 
     }
 
@@ -65,7 +78,7 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<ChatMessageP
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         // 长ID才是channel唯一值
         String channelId = ctx.channel().id().asLongText();
-        log.info("{}客户端已连接",channelId);
+        log.info("{}客户端已连接", channelId);
     }
 
     /**
@@ -77,7 +90,7 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<ChatMessageP
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
         String channelId = ctx.channel().id().asLongText();
-        log.info("{}客户端已断开",channelId);
+        log.info("{}客户端已断开", channelId);
     }
 
     /**
@@ -89,7 +102,7 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<ChatMessageP
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        log.info("{}通道发送异常,正在关闭...",ctx.channel().id().asLongText());
+        log.info("{}通道发送异常,正在关闭...", ctx.channel().id().asLongText());
         // 发送异常关闭连接
         ctx.close();
     }
