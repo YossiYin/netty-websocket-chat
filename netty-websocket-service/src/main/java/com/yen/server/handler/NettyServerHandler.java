@@ -1,4 +1,12 @@
 package com.yen.server.handler;
+import com.google.protobuf.ByteString;
+import com.google.protobuf.GeneratedMessage;
+import com.yen.model.proto.ChatMessageProto.ChatMessage;
+import com.google.protobuf.UnknownFieldSet;
+import com.google.protobuf.Descriptors.Descriptor;
+import java.util.Map;
+import com.google.protobuf.Descriptors.FieldDescriptor;
+import com.google.protobuf.Parser;
 
 import com.yen.model.proto.ChatMessageProto;
 import io.netty.channel.ChannelHandler;
@@ -32,7 +40,17 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<ChatMessageP
      */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ChatMessageProto.ChatMessage msg) {
-        log.info("服务端收到消息[{}]",msg.toString());
+     long fromUserId = msg.getFromUserId();
+     long toUserId = msg.getToUserId();
+     String content = msg.getContent();
+     String sendTime = msg.getSendTime();
+     int type = msg.getType();
+     int status = msg.getStatus();
+     long id = msg.getId();
+        log.info("服务端收到消息: [\nfromUserId={},\n toUserId={},\n content='{}',\n sendTime={},\n type={},\n status={},\n id={}\n]",
+                fromUserId, toUserId, content, sendTime, type, status, id);
+
+
         // 异步线程处理业务逻辑
 
     }
